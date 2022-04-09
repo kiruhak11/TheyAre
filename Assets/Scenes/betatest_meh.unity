@@ -2914,7 +2914,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-21470
+  m_Name: pb_Mesh18172
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -10371,8 +10371,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc31ebac4c7b2f84386055283fdd0f25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensX: 100
-  sensY: 100
+  sensX: 200
+  sensY: 200
   orientation: {fileID: 3787044525737457508}
 --- !u!1 &1651739284
 GameObject:
@@ -12877,7 +12877,7 @@ GameObject:
   - component: {fileID: 1954444514}
   - component: {fileID: 1954444513}
   - component: {fileID: 1954444512}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15240,7 +15240,7 @@ MonoBehaviour:
   crouchYScale: 0.6
   jumpKey: 32
   sprintKey: 304
-  crouchKey: 306
+  crouchKey: 99
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
