@@ -1,0 +1,15 @@
+# Blender MTL File: 'outlets_switches.blend'
+# Material Count: 1
+
+newmtl m_outlet_base
+Ns 564.062507
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd G:\\Workshop\\Finished Projects\\models\\electronic_outlets_switches\\sketchfab\\outlets_switches_diffuse.jpg
+map_Ns G:\\Workshop\\Finished Projects\\models\\electronic_outlets_switches\\sketchfab\\outlets_switches_roughness.jpg
+refl G:\\Workshop\\Finished Projects\\models\\electronic_outlets_switches\\sketchfab\\outlets_switches_metallic.jpg
