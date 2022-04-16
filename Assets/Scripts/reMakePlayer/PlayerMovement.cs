@@ -1,13 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Slidere")]
+    public Slider slider;
+    public GameObject sliderObj;
+    public float timer;
+    public float stminaValue = 100;
+    bool canRun;
+    public static float staminaAdd = 3;
+    public static float staminaTake = 20;
+
+
+
    [Header("Movement")]
     private float moveSpeed;
     public float walkSpeed;
-    public float sprintSpeed;
+    public static float sprintSpeed;
     public float slideSpeed;
 
     private float desiredMoveSpeed;
@@ -53,6 +65,8 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
+    public Text textSpeed;
+    public Text textState;
 
     public MovementState state;
     public enum MovementState
@@ -70,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-
+        sprintSpeed = 8f;
         readyToJump = true;
 
         startYScale = transform.localScale.y;
@@ -90,6 +104,36 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+
+                if(stminaValue <= 0){
+            canRun = false;
+        } else canRun = true;
+
+        staminaMathf();
+
+        textSpeed.text = "Скорость  - " + desiredMoveSpeed;
+        textState.text = "state  - " + state;
+        
+    }
+    private void staminaMathf(){
+//stamina
+        if(Input.GetKey(sprintKey) && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))){
+            sliderObj.SetActive(true);
+            if(stminaValue >= 0){
+                stminaValue -= staminaTake * 0.02f;
+            }
+        } else {
+            if(stminaValue <= 100){
+                stminaValue += staminaAdd * 0.02f;
+            }
+        }
+        if(stminaValue > 100){
+            stminaValue = 100;
+            sliderObj.SetActive(false);
+        }
+        if(stminaValue < 0) stminaValue = 0;
+
+        slider.value = stminaValue;
     }
 
     private void FixedUpdate()
@@ -148,7 +192,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Mode - Sprinting
-        else if(grounded && Input.GetKey(sprintKey))
+        else if(grounded && Input.GetKey(sprintKey) && canRun)
         {
             state = MovementState.sprinting;
             desiredMoveSpeed = sprintSpeed;
