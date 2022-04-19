@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class UpdatingPlayer : MonoBehaviour
 {
     [HideInInspector]
-    public static bool isPaused;
+    public static bool UpdatePause;
     [SerializeField]
     private KeyCode pauseButton;
     [SerializeField]
@@ -22,12 +22,12 @@ public class UpdatingPlayer : MonoBehaviour
     PlayerCam playerCam;
 
     void Start(){
-        isPaused = false;
+        UpdatePause = false;
         playerCam = player.GetComponent<PlayerCam>();
     }
 
     public void unpause(){
-        isPaused = !isPaused;
+        UpdatePause = !UpdatePause;
     }
     public void Updating(){
         TextAdd.text = PlayerMovement.staminaAdd + " в сек.";
@@ -52,10 +52,10 @@ public class UpdatingPlayer : MonoBehaviour
     void Update(){
         Updating();
         if(Input.GetKeyDown(pauseButton)){
-            isPaused = !isPaused;
+            UpdatePause = !UpdatePause;
         }
 
-        if(isPaused){
+        if(UpdatePause){
             UpdatePanel.SetActive(true);
             player.GetComponent<PlayerCam>().enabled = false;
             Cursor.visible = true;

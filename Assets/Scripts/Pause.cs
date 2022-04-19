@@ -25,9 +25,9 @@ public class Pause : MonoBehaviour{
     }
 
     void Update(){
-        if(Input.GetKeyDown(pauseButton)){
+        if(Input.GetKeyDown(pauseButton) && !UpdatingPlayer.UpdatePause){
             isPaused = !isPaused;
-        }
+        } else if(UpdatingPlayer.UpdatePause) UpdatingPlayer.UpdatePause = false;
 
         if(isPaused){
             pausePanel.SetActive(true);
