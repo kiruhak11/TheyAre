@@ -1,7 +1,8 @@
 # TheyAre
 ##### Скачать игру можно всегда по этой ссылке
 
-:large_blue_diamond: [TheyAre](https://drive.google.com/file/d/1nLSfgXrfspYgZh4cVD2cwy_-hfVeLDBJ/view?usp=sharing)
+:large_blue_diamond: [TheyAre](https://drive.google.com/uc?export=download&id=1h1ogKGpgsCNfyO3AyB-isjythuaOEFNb)
+
 
 :white_check_mark: Последний патчлог:
 - Исправлена механника управление персонажем
@@ -12,3 +13,4 @@
 - Добавление переработанной механники в основную(Сюжетную) игру
 - Добавление улучшений персонажа
 - Добавление новых миссий Главы Пролог
+_
