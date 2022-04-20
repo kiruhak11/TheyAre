@@ -51,23 +51,24 @@ public class UpdatingPlayer : MonoBehaviour
 
     void Update(){
         Updating();
-        if(Input.GetKeyDown(pauseButton)){
+        if(Input.GetKeyDown(pauseButton) && !Pause.isPaused){
             UpdatePause = !UpdatePause;
         }
+        if(!Pause.isPaused){
+            if(UpdatePause && !Pause.isPaused){
+                UpdatePanel.SetActive(true);
+                player.GetComponent<PlayerCam>().enabled = false;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
 
-        if(UpdatePause){
-            UpdatePanel.SetActive(true);
-            player.GetComponent<PlayerCam>().enabled = false;
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-
-            Time.timeScale = 0;
-        } else {
-            UpdatePanel.SetActive(false);
-            player.GetComponent<PlayerCam>().enabled = true;
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            Time.timeScale = 1;
+                Time.timeScale = 0;
+            } else {
+                UpdatePanel.SetActive(false);
+                player.GetComponent<PlayerCam>().enabled = true;
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                Time.timeScale = 1;
+            }
         }
     }
 }

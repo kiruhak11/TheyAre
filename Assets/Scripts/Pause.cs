@@ -27,21 +27,22 @@ public class Pause : MonoBehaviour{
     void Update(){
         if(Input.GetKeyDown(pauseButton) && !UpdatingPlayer.UpdatePause){
             isPaused = !isPaused;
-        } else if(UpdatingPlayer.UpdatePause) UpdatingPlayer.UpdatePause = false;
+        } else
+        if(!UpdatingPlayer.UpdatePause){
+            if(isPaused){
+                pausePanel.SetActive(true);
+                player.GetComponent<PlayerCam>().enabled = false;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
 
-        if(isPaused){
-            pausePanel.SetActive(true);
-            player.GetComponent<PlayerCam>().enabled = false;
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-
-            Time.timeScale = 0;
-        } else {
-            pausePanel.SetActive(false);
-            player.GetComponent<PlayerCam>().enabled = true;
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            Time.timeScale = 1;
+                Time.timeScale = 0;
+            } else {
+                pausePanel.SetActive(false);
+                player.GetComponent<PlayerCam>().enabled = true;
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                Time.timeScale = 1;
+            }
         }
     }
 }
