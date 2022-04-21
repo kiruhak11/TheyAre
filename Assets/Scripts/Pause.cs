@@ -14,6 +14,9 @@ public class Pause : MonoBehaviour{
     private GameObject player;
 
     PlayerCam playerCam;
+    public GameObject Options;
+    public GameObject hud;
+    bool settings;
 
     void Start(){
         isPaused = false;
@@ -25,12 +28,14 @@ public class Pause : MonoBehaviour{
     }
 
     void Update(){
-        if(Input.GetKeyDown(pauseButton) && !UpdatingPlayer.UpdatePause){
+        if(Input.GetKeyDown(pauseButton) && !UpdatingPlayer.UpdatePause && !settings){
             isPaused = !isPaused;
         } else
         if(!UpdatingPlayer.UpdatePause){
             if(isPaused){
-                pausePanel.SetActive(true);
+                if(!settings)
+                    pausePanel.SetActive(true);
+                hud.SetActive(false);
                 player.GetComponent<PlayerCam>().enabled = false;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
@@ -38,11 +43,25 @@ public class Pause : MonoBehaviour{
                 Time.timeScale = 0;
             } else {
                 pausePanel.SetActive(false);
+                hud.SetActive(true);
                 player.GetComponent<PlayerCam>().enabled = true;
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
                 Time.timeScale = 1;
             }
         }
+    }
+
+    //buttons 
+
+    public void buttonOptionsIn(){
+        Options.SetActive(true);
+        pausePanel.SetActive(false);
+        settings = true;
+    }
+    public void buttonOptionsOut(){
+        Options.SetActive(false);
+        pausePanel.SetActive(true);
+        settings = false;
     }
 }

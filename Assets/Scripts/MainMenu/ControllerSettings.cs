@@ -16,7 +16,7 @@ public class ControllerSettings : MonoBehaviour
     {
         countSens.text = Mathf.Round(PlayerCam.sens) + ""; 
         PlayerCam.sens = sliderSens.value;
-        if(float.Parse(field.text) > 1 && float.Parse(field.text) < 1001)
+        if(float.Parse(field.text) > 1 && float.Parse(field.text) < 101)
             sliderSens.value = float.Parse(field.text);
         
     }

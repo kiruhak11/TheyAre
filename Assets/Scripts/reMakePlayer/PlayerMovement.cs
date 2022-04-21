@@ -111,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
 
         staminaMathf();
 
-        textSpeed.text = "Скорость  - " + desiredMoveSpeed;
+        textSpeed.text = "Speed  - " + slideSpeed;
         textState.text = "state  - " + state;
         
     }
