@@ -8,6 +8,7 @@ public class Door : MonoBehaviour
 {
     public enum open_type_ENUM {rot_to_open, move_to_open}//typeDoor
     public open_type_ENUM open_type;
+    public Animator anim;
     public enum door_axis_ENUM {X, Y, Z}// axis door
     public door_axis_ENUM door_axis;
     public bool only_open;
@@ -56,6 +57,7 @@ public class Door : MonoBehaviour
     }
     void OnMouseDown(){
         if(dist < 3f){
+            anim.SetTrigger("open");
             if(gameObject.tag == "Door"){
                 if(door_handle){
                     if(handle_axis == handle_axis_ENUM.X) door_handle.transform.localRotation = Quaternion.Euler(handle_rot_andle, 0f, 0f);

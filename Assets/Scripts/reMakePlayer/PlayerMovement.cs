@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Animator anim;
+
     [Header("Slidere")]
     public Slider slider;
     public GameObject sliderObj;
@@ -58,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
     
 
     public Transform orientation;
+    public Transform PlayerObj;
 
     float horizontalInput;
     float verticalInput;
@@ -92,6 +95,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        AnimController();
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
@@ -159,14 +163,14 @@ public class PlayerMovement : MonoBehaviour
         // start crouch
         if (Input.GetKeyDown(crouchKey))
         {
-            transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
+            PlayerObj.transform.localScale = new Vector3(PlayerObj.transform.localScale.x, crouchYScale, PlayerObj.transform.localScale.z);
             rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
         }
 
         // stop crouch
         if (Input.GetKeyUp(crouchKey))
         {
-            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
+            PlayerObj.transform.localScale = new Vector3(PlayerObj.transform.localScale.x, startYScale, PlayerObj.transform.localScale.z);
         }
     }
 
@@ -303,6 +307,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
+        anim.SetTrigger("jump");
         exitingSlope = true;
 
         // reset y velocity
@@ -331,5 +336,14 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 GetSlopeMoveDirection(Vector3 direction)
     {
         return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
+    }
+
+    public void AnimController(){
+        
+        anim.SetFloat("X", Input.GetAxis("Horizontal"));
+        anim.SetFloat("Y", Input.GetAxis("Vertical"));
+        if(state == MovementState.crouching){
+            anim.SetTrigger("crouch");
+        }
     }
 }
