@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,16 +11,34 @@ public class UpdatingPlayer : MonoBehaviour
     [SerializeField]
     private KeyCode pauseButton;
     [SerializeField]
+    private KeyCode pauseButton2;
+    [SerializeField]
     private GameObject UpdatePanel;
     [SerializeField]
     private GameObject player;
-
-    public Text TextAdd;
-
-    public Text TextTake;
-    public Text TextSpeed;
-
     PlayerCam playerCam;
+
+    private float maxStaminaAdd = 5f; 
+    private float maxStaminaTake = 5f;
+    private float nowStaminaAdd = 0f; 
+    private float nowStaminaTake = 0f;
+    private float nowUpdatePriceStamina = 1f;
+    private float nowUpdatePriceStaminaTake = 1f;
+
+    public float pointUpdate;
+
+    [Header("Panels")]
+    public GameObject staminaPanel;
+    public GameObject ExoScilet;
+    public GameObject GunsPanel;
+
+    [Header("Texts")]
+    public Text TextAddStamina;
+    public Text countPoint;
+    public Text TextTakeStamina;
+    public Text nowUpdatePriceStaminaText;
+    public Text nowUpdatePriceStaminaTakeText;
+
 
     void Start(){
         UpdatePause = false;
@@ -30,28 +49,50 @@ public class UpdatingPlayer : MonoBehaviour
         UpdatePause = !UpdatePause;
     }
     public void Updating(){
-        TextAdd.text = PlayerMovement.staminaAdd + " в сек.";
-        TextTake.text = PlayerMovement.staminaTake + " в сек.";
-        TextSpeed.text = PlayerMovement.sprintSpeed + " ";
+        TextAddStamina.text = nowStaminaAdd + " / " + maxStaminaAdd;
+        TextTakeStamina.text = nowStaminaTake + " / " + maxStaminaTake;
     }
     public void TapToUpdateAdd(){
-        PlayerMovement.staminaAdd += 1;
-    }
-    public void TapToUpdateSpeedAdd(){
-        PlayerMovement.sprintSpeed += 1;
-    }
-    public void TapToUpdateSpeedMiss(){
-        PlayerMovement.sprintSpeed -= 1;
+        if(pointUpdate >= nowUpdatePriceStamina && nowStaminaAdd != maxStaminaAdd){
+            pointUpdate -= nowUpdatePriceStamina;
+            nowStaminaAdd += 1f;
+            nowUpdatePriceStamina = nowUpdatePriceStamina * 2f;
+        }
+        staminaChecker();
     }
     public void TapToUpdateTake(){
-        if (PlayerMovement.staminaTake != 1){
-            PlayerMovement.staminaTake -= 1;
+        if(pointUpdate >= nowUpdatePriceStaminaTake && nowStaminaTake != maxStaminaTake){
+            pointUpdate -= nowUpdatePriceStaminaTake;
+            nowStaminaTake += 1f;
+            nowUpdatePriceStaminaTake = nowUpdatePriceStaminaTake * 4f;
         }
+        staminaChecker();
+    }
+    public void ButtonStaminaUpdate(){
+        staminaPanel.SetActive(true);
+        ExoScilet.SetActive(false);
+        GunsPanel.SetActive(false);
+    }
+    public void ButtonExoSciletUpdate(){
+        ExoScilet.SetActive(true);
+        staminaPanel.SetActive(false);
+        GunsPanel.SetActive(false);
+    }
+    public void ButtonGunsUpdate(){
+        GunsPanel.SetActive(true);
+        ExoScilet.SetActive(false);
+        staminaPanel.SetActive(false);
     }
 
     void Update(){
         Updating();
+        countPoint.text = "Очков улучшения " + pointUpdate;
+        nowUpdatePriceStaminaText.text = "За " + nowUpdatePriceStamina;
+        nowUpdatePriceStaminaTakeText.text = "За " + nowUpdatePriceStaminaTake;
         if(Input.GetKeyDown(pauseButton) && !Pause.isPaused){
+            UpdatePause = !UpdatePause;
+        }
+        if(UpdatePause && Input.GetKeyDown(pauseButton2) && !Pause.isPaused){
             UpdatePause = !UpdatePause;
         }
         if(!Pause.isPaused){
@@ -68,6 +109,23 @@ public class UpdatingPlayer : MonoBehaviour
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
                 Time.timeScale = 1;
+            }
+        }
+        if(UpdatePause){
+            Pause.isPaused = false;
+        }
+    }
+
+    //========================
+
+    private void staminaChecker(){
+        if(nowStaminaAdd != 0){
+            PlayerMovement.staminaAdd = PlayerMovement.staminaAdd + (nowStaminaAdd / 2f);
+        }
+        if(nowStaminaTake != 0){
+            PlayerMovement.staminaTake = PlayerMovement.staminaTake - nowStaminaTake;
+            if(PlayerMovement.staminaTake <= 0){
+                PlayerMovement.staminaTake = 1f;
             }
         }
     }

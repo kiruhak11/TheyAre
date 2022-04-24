@@ -11,12 +11,13 @@ public class Pause : MonoBehaviour{
     [SerializeField]
     private GameObject pausePanel;
     [SerializeField]
+    private GameObject textMissions;
+    [SerializeField]
     private GameObject player;
 
     PlayerCam playerCam;
     public GameObject Options;
     public GameObject hud;
-    bool settings;
 
     void Start(){
         isPaused = false;
@@ -28,13 +29,12 @@ public class Pause : MonoBehaviour{
     }
 
     void Update(){
-        if(Input.GetKeyDown(pauseButton) && !UpdatingPlayer.UpdatePause && !settings){
+        if(Input.GetKeyDown(pauseButton) && !UpdatingPlayer.UpdatePause){
             isPaused = !isPaused;
         } else
         if(!UpdatingPlayer.UpdatePause){
             if(isPaused){
-                if(!settings)
-                    pausePanel.SetActive(true);
+                pausePanel.SetActive(true);
                 hud.SetActive(false);
                 player.GetComponent<PlayerCam>().enabled = false;
                 Cursor.visible = true;
@@ -56,12 +56,10 @@ public class Pause : MonoBehaviour{
 
     public void buttonOptionsIn(){
         Options.SetActive(true);
-        pausePanel.SetActive(false);
-        settings = true;
+        textMissions.SetActive(false);
     }
     public void buttonOptionsOut(){
         Options.SetActive(false);
-        pausePanel.SetActive(true);
-        settings = false;
+        textMissions.SetActive(true);
     }
 }

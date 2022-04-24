@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
    [Header("Movement")]
     private float moveSpeed;
     public float walkSpeed;
-    public static float sprintSpeed;
+    public static float sprintSpeed = 8f;
     public float slideSpeed;
 
     private float desiredMoveSpeed;
