@@ -68,8 +68,6 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
-    public Text textSpeed;
-    public Text textState;
 
     public MovementState state;
     public enum MovementState
@@ -114,9 +112,6 @@ public class PlayerMovement : MonoBehaviour
         } else canRun = true;
 
         staminaMathf();
-
-        textSpeed.text = "Speed  - " + slideSpeed;
-        textState.text = "state  - " + state;
         
     }
     private void staminaMathf(){

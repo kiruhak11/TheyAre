@@ -55,24 +55,32 @@ public class Door : MonoBehaviour
             interaction_image.SetActive(false);    
         }
     }
-    void OnMouseDown(){
-        if(dist < 3f){
-            anim.SetTrigger("open");
-            if(gameObject.tag == "Door"){
-                if(door_handle){
-                    if(handle_axis == handle_axis_ENUM.X) door_handle.transform.localRotation = Quaternion.Euler(handle_rot_andle, 0f, 0f);
-                    else if(handle_axis == handle_axis_ENUM.Y) door_handle.transform.localRotation = Quaternion.Euler(0f, handle_rot_andle, 0f);
-                    else if(handle_axis == handle_axis_ENUM.Z) door_handle.transform.localRotation = Quaternion.Euler(0f, 0f, handle_rot_andle);
+    void click(){
+        if(Input.GetKeyDown(KeyCode.E)){
+            if(dist < 3f && isEnter){
+                anim.SetTrigger("open");
+                if(gameObject.tag == "Door"){
+                    if(door_handle){
+                        if(handle_axis == handle_axis_ENUM.X) door_handle.transform.localRotation = Quaternion.Euler(handle_rot_andle, 0f, 0f);
+                        else if(handle_axis == handle_axis_ENUM.Y) door_handle.transform.localRotation = Quaternion.Euler(0f, handle_rot_andle, 0f);
+                        else if(handle_axis == handle_axis_ENUM.Z) door_handle.transform.localRotation = Quaternion.Euler(0f, 0f, handle_rot_andle);
+                    }
+                    Open_close();
                 }
-                Open_close();
             }
         }
+        if(Input.GetKeyUp(KeyCode.E)){
+            if(door_handle) door_handle.transform.localRotation = handle_start_rot;
+        }
     }
-    void OnMouseUp(){
-        if(door_handle) door_handle.transform.localRotation = handle_start_rot;
-    }
+    // void OnMouseDown(){
+        
+    // }
+    // void OnMouseUp(){
+        
+    // }
     void Update() {
-
+        click();
         if(isEnter && dist < 4f){
             interaction_image.SetActive(true); 
         } 

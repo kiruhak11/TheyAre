@@ -8,6 +8,7 @@ public class chellenher : MonoBehaviour
 {   
     public Text text_mission;
     public Text text_tip;
+    
     public GameObject flashlights, shetok, IzecNPS;
     public GameObject text_tip_GO;
     public GameObject text_mission_GO;
