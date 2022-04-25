@@ -29,9 +29,13 @@ public class Throwing : MonoBehaviour
 
     bool readyToThrow;
 
+    public GameObject TargetObj;
+    private HudController _actionTarget;
+
     private void Start()
     {
         readyToThrow = true;
+        _actionTarget = TargetObj.GetComponent<HudController>();
     }
 
     private void Update()
@@ -40,6 +44,9 @@ public class Throwing : MonoBehaviour
         if(Input.GetKeyDown(throwKey) && readyToThrow && totalThrows > 0)
         {
             Throw();
+        }
+        if(Input.GetKeyDown(throwKey) && totalThrows <= 0){
+            _actionTarget.message(mission: "Недостаточно патронов");
         }
         textAmmo.text = totalThrows + " / " + totalThrowsMax;
     }

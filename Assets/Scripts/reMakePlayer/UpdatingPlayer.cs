@@ -13,9 +13,11 @@ public class UpdatingPlayer : MonoBehaviour
     [SerializeField]
     private KeyCode pauseButton2;
     [SerializeField]
-    private GameObject UpdatePanel;
-    [SerializeField]
     private GameObject player;
+    [SerializeField]
+    private GameObject use;
+    [SerializeField]
+    private GameObject tipObj;
     PlayerCam playerCam;
 
     private float maxStaminaAdd = 5f; 
@@ -30,9 +32,12 @@ public class UpdatingPlayer : MonoBehaviour
     [Header("Panels")]
     public GameObject staminaPanel;
     public GameObject ExoScilet;
+    public GameObject hud;
+    public GameObject UpdatePanel;
     public GameObject GunsPanel;
 
     [Header("Texts")]
+    public Text tip;
     public Text TextAddStamina;
     public Text countPoint;
     public Text TextTakeStamina;
@@ -57,16 +62,18 @@ public class UpdatingPlayer : MonoBehaviour
             pointUpdate -= nowUpdatePriceStamina;
             nowStaminaAdd += 1f;
             nowUpdatePriceStamina = nowUpdatePriceStamina * 2f;
+            staminaChecker();
         }
-        staminaChecker();
+        
     }
     public void TapToUpdateTake(){
         if(pointUpdate >= nowUpdatePriceStaminaTake && nowStaminaTake != maxStaminaTake){
             pointUpdate -= nowUpdatePriceStaminaTake;
             nowStaminaTake += 1f;
             nowUpdatePriceStaminaTake = nowUpdatePriceStaminaTake * 4f;
+            staminaChecker();
         }
-        staminaChecker();
+        
     }
     public void ButtonStaminaUpdate(){
         staminaPanel.SetActive(true);
@@ -85,10 +92,17 @@ public class UpdatingPlayer : MonoBehaviour
     }
 
     void Update(){
+
+        //voids
+        checkUse();
         Updating();
+
+        //TextSetToUpdatingPlayer
         countPoint.text = "Очков улучшения " + pointUpdate;
         nowUpdatePriceStaminaText.text = "За " + nowUpdatePriceStamina;
         nowUpdatePriceStaminaTakeText.text = "За " + nowUpdatePriceStaminaTake;
+
+
         if(Input.GetKeyDown(pauseButton) && !Pause.isPaused){
             UpdatePause = !UpdatePause;
         }
@@ -98,6 +112,7 @@ public class UpdatingPlayer : MonoBehaviour
         if(!Pause.isPaused){
             if(UpdatePause && !Pause.isPaused){
                 UpdatePanel.SetActive(true);
+                hud.SetActive(false);
                 player.GetComponent<PlayerCam>().enabled = false;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
@@ -105,6 +120,7 @@ public class UpdatingPlayer : MonoBehaviour
                 Time.timeScale = 0;
             } else {
                 UpdatePanel.SetActive(false);
+                hud.SetActive(true);
                 player.GetComponent<PlayerCam>().enabled = true;
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
@@ -127,6 +143,14 @@ public class UpdatingPlayer : MonoBehaviour
             if(PlayerMovement.staminaTake <= 0){
                 PlayerMovement.staminaTake = 1f;
             }
+        }
+    }
+    public void checkUse(){
+        if(use.activeInHierarchy){
+            tipObj.SetActive(true);
+            tip.text = "E";
+        } else {
+            tipObj.SetActive(false);
         }
     }
 }

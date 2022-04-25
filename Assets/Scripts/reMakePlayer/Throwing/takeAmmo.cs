@@ -9,6 +9,9 @@ public class takeAmmo : MonoBehaviour
     public GameObject player;
     public GameObject interaction_image;
     public bool isEnter;
+    public GameObject TargetObj;
+    private HudController _actionTarget;
+
 
     void OnMouseEnter() {
         if(gameObject.tag == "Door") isEnter = true;            
@@ -26,6 +29,7 @@ public class takeAmmo : MonoBehaviour
                 anim.SetTrigger("open");
                 if(gameObject.tag == "Door"){
                     Throwing.totalThrows += 10;
+                    _actionTarget.message(mission: "Вы подняли 10 патронов");
                 }
             }
         }
@@ -41,5 +45,8 @@ public class takeAmmo : MonoBehaviour
 
         dist = Vector3.Distance(player.transform.position, transform.position);
         click();
+    }
+    void Start(){
+        _actionTarget = TargetObj.GetComponent<HudController>();
     }
 }

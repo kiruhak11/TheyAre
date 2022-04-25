@@ -340,5 +340,8 @@ public class PlayerMovement : MonoBehaviour
         if(state == MovementState.crouching){
             anim.SetTrigger("crouch");
         }
+        if(state == MovementState.sprinting){
+            anim.SetTrigger("run");
+        }
     }
 }
