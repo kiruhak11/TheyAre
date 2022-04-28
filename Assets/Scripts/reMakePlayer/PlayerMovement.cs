@@ -52,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
     public float playerHeight;
     public LayerMask whatIsGround;
     bool grounded;
+    public bool run = true;
+    public bool croucha = true;
 
     [Header("Slope Handling")]
     public float maxSlopeAngle;
@@ -187,6 +189,7 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKey(crouchKey))
         {
             state = MovementState.crouching;
+            anim.SetTrigger("crouch");
             desiredMoveSpeed = crouchSpeed;
         }
 
@@ -194,6 +197,7 @@ public class PlayerMovement : MonoBehaviour
         else if(grounded && Input.GetKey(sprintKey) && canRun)
         {
             state = MovementState.sprinting;
+            anim.SetTrigger("run");
             desiredMoveSpeed = sprintSpeed;
         }
 
@@ -201,6 +205,7 @@ public class PlayerMovement : MonoBehaviour
         else if (grounded)
         {
             state = MovementState.walking;
+            anim.SetTrigger("defoult");
             desiredMoveSpeed = walkSpeed;
         }
 
@@ -337,11 +342,5 @@ public class PlayerMovement : MonoBehaviour
         
         anim.SetFloat("X", Input.GetAxis("Horizontal"));
         anim.SetFloat("Y", Input.GetAxis("Vertical"));
-        if(state == MovementState.crouching){
-            anim.SetTrigger("crouch");
-        }
-        if(state == MovementState.sprinting){
-            anim.SetTrigger("run");
-        }
     }
 }
