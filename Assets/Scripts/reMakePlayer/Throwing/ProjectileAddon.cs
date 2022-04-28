@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class ProjectileAddon : MonoBehaviour
 {
-    public int damage;
+    public static int damage;
 
     private Rigidbody rb;
 
     private bool targetHit;
+    
 
     private void Start()
     {
@@ -29,6 +30,14 @@ public class ProjectileAddon : MonoBehaviour
             BasicEnemyDone enemy = collision.gameObject.GetComponent<BasicEnemyDone>();
 
             enemy.TakeDamage(damage);
+
+            // destroy projectile
+            Destroy(gameObject);
+        }
+
+        if(collision.gameObject.GetComponent<PlayerMovement>() != null)
+        {
+            PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
 
             // destroy projectile
             Destroy(gameObject);

@@ -14,12 +14,15 @@ public class Throwing : MonoBehaviour
     public GameObject objectToThrow;
 
     [Header("Settings")]
-    public static int totalThrows;
+
+    public int totalThrows;
     public int totalThrowsMax = 300;
     public float throwCooldown;
 
     [Header("Throwing")]
     public KeyCode throwKey = KeyCode.Mouse0;
+    public KeyCode keyGun;
+    public KeyCode keyMiniGun;
     public float throwForce;
     public float throwUpwardForce;
 
@@ -31,6 +34,13 @@ public class Throwing : MonoBehaviour
 
     public GameObject TargetObj;
     private HudController _actionTarget;
+    public MovementState state;
+
+    public enum MovementState
+    {
+        Gun,
+        miniGun
+    }
 
     private void Start()
     {
@@ -41,10 +51,23 @@ public class Throwing : MonoBehaviour
     private void Update()
     {
         limited();
-        if(Input.GetKeyDown(throwKey) && readyToThrow && totalThrows > 0)
+        if(Input.GetKeyDown(throwKey) && readyToThrow && totalThrows > 0 && !Pause.isPaused && !UpdatingPlayer.UpdatePause && state == MovementState.Gun)
         {
             Throw();
         }
+        if(Input.GetKey(throwKey) && readyToThrow && totalThrows > 0 && !Pause.isPaused && !UpdatingPlayer.UpdatePause && state == MovementState.miniGun)
+        {
+            Throw();
+        }
+        if(Input.GetKey(keyGun)){
+            state = MovementState.Gun;
+            ProjectileAddon.damage = 35;
+        }
+        if(Input.GetKey(keyMiniGun)){
+            state = MovementState.miniGun;
+            ProjectileAddon.damage = 15;
+        }
+        textGun.text = state + " ";
         if(Input.GetKeyDown(throwKey) && totalThrows <= 0){
             _actionTarget.message(mission: "Недостаточно патронов");
         }
@@ -91,5 +114,8 @@ public class Throwing : MonoBehaviour
         if(totalThrows > 300){
             totalThrows = 300;
         }
+    }
+    void test(){
+        totalThrows += 10;
     }
 }

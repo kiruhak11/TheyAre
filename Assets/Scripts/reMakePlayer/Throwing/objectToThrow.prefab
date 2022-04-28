@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 1251723391729223096}
   - component: {fileID: 2419463024557570822}
   - component: {fileID: 8072598118212004878}
-  - component: {fileID: -8949793858792058319}
   m_Layer: 0
   m_Name: objectToThrow
   m_TagString: Untagged
@@ -127,16 +126,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 20
---- !u!114 &-8949793858792058319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 732991597188998316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cade3b78fd1c974a9317ee034bec1d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 20

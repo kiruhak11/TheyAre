@@ -11,6 +11,7 @@ public class takeAmmo : MonoBehaviour
     public bool isEnter;
     public GameObject TargetObj;
     private HudController _actionTarget;
+    private Throwing throwingScript;
 
 
     void OnMouseEnter() {
@@ -28,7 +29,7 @@ public class takeAmmo : MonoBehaviour
             if(dist < 3f && isEnter){
                 anim.SetTrigger("open");
                 if(gameObject.tag == "Door"){
-                    Throwing.totalThrows += 10;
+                    throwingScript.totalThrows += 10;
                     _actionTarget.message(mission: "Вы подняли 10 патронов");
                 }
             }
@@ -48,5 +49,6 @@ public class takeAmmo : MonoBehaviour
     }
     void Start(){
         _actionTarget = TargetObj.GetComponent<HudController>();
+        throwingScript = player.GetComponent<Throwing>();
     }
 }
