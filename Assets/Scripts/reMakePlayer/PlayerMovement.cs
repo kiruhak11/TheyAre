@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
-{
+{   
     public Animator anim;
 
     [Header("Slidere")]
@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     public float walkSpeed;
     public static float sprintSpeed = 8f;
     public float slideSpeed;
+    public float dist;
 
     private float desiredMoveSpeed;
     private float lastDesiredMoveSpeed;
@@ -59,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
     public float maxSlopeAngle;
     private RaycastHit slopeHit;
     private bool exitingSlope;
+    public float timerAir = 1;
+    public float timerAirDamage;
     
 
     public Transform orientation;
@@ -70,6 +73,10 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
+    public GameObject Ground;
+
+    private HealthManager healthManager;
+    public GameObject healthObj; 
 
     public MovementState state;
     public enum MovementState
@@ -85,6 +92,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        healthManager = healthObj.GetComponent<HealthManager>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         sprintSpeed = 8f;
@@ -95,6 +103,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        damageInAir();
         AnimController();
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
@@ -342,5 +351,22 @@ public class PlayerMovement : MonoBehaviour
         
         anim.SetFloat("X", Input.GetAxis("Horizontal"));
         anim.SetFloat("Y", Input.GetAxis("Vertical"));
+    }
+
+    void damageInAir(){
+        if(state == MovementState.air){
+            timerAir -= 1 * Time.deltaTime;
+            if(timerAir <= 0){
+                timerAirDamage += 1f;
+            }
+        }
+        if(state != MovementState.air && timerAirDamage != 0){
+                healthManager.HealthPlayer -= timerAirDamage;
+                timerAir = 1f;
+                timerAirDamage = 0f;
+        } else if(state != MovementState.air && timerAirDamage == 0){
+                timerAir = 1f;
+                timerAirDamage = 0f;
+        }
     }
 }

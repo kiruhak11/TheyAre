@@ -51,27 +51,28 @@ public class Throwing : MonoBehaviour
     private void Update()
     {
         limited();
-        if(Input.GetKeyDown(throwKey) && readyToThrow && totalThrows > 0 && !Pause.isPaused && !UpdatingPlayer.UpdatePause && state == MovementState.Gun)
+        if(Input.GetKeyDown(throwKey) && readyToThrow && totalThrows > 0 && !Pause.isPaused && !UpdatingPlayer.UpdatePause && state == MovementState.Gun && GrabSys.grabs)
         {
             Throw();
         }
-        if(Input.GetKey(throwKey) && readyToThrow && totalThrows > 0 && !Pause.isPaused && !UpdatingPlayer.UpdatePause && state == MovementState.miniGun)
+        if(Input.GetKey(throwKey) && readyToThrow && totalThrows > 0 && !Pause.isPaused && !UpdatingPlayer.UpdatePause && state == MovementState.miniGun && GrabSys.grabs)
         {
             Throw();
         }
-        if(Input.GetKey(keyGun)){
+        if(Input.GetKey(keyGun))
             state = MovementState.Gun;
-            ProjectileAddon.damage = 35;
-        }
-        if(Input.GetKey(keyMiniGun)){
+
+        if(Input.GetKey(keyMiniGun))
             state = MovementState.miniGun;
-            ProjectileAddon.damage = 15;
-        }
+
         textGun.text = state + " ";
         if(Input.GetKeyDown(throwKey) && totalThrows <= 0){
             _actionTarget.message(mission: "Недостаточно патронов");
         }
+
         textAmmo.text = totalThrows + " / " + totalThrowsMax;
+        if(state == MovementState.Gun) ProjectileAddon.damage = 35;
+        if(state == MovementState.miniGun) ProjectileAddon.damage = 15;
     }
 
     private void Throw()
