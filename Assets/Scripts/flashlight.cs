@@ -9,19 +9,16 @@ public class flashlight : MonoBehaviour
     public bool isEnter = false;
     public float dist;
     public static bool flashlight_take = false;
-    void OnMouseDown(){
-        if(dist < 3f){
-            flashlight_take = true;
-            Destroy(gameObject);
-        }
-    }
     void Update()
     {
 
         if(isEnter && dist < 3f){
             interaction_image.SetActive(true); 
         } 
-
+        if(isEnter && dist < 3f && (Input.GetKeyDown(KeyCode.E))){
+            flashlight_take = true;
+            Destroy(gameObject); 
+        }
 
         dist = Vector3.Distance(player.transform.position, transform.position);
     }
