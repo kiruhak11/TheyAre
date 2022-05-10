@@ -22,6 +22,7 @@ public class Throwing : MonoBehaviour
     [Header("Throwing")]
     public KeyCode throwKey = KeyCode.Mouse0;
     public KeyCode keyGun;
+    public KeyCode keyFlashlight;
     public KeyCode keyMiniGun;
     public float throwForce;
     public float throwUpwardForce;
@@ -31,15 +32,19 @@ public class Throwing : MonoBehaviour
     public Text textGun;
 
     bool readyToThrow;
+    bool flashlightBool;
 
     public GameObject TargetObj;
+    public GameObject flashlightGO;
+    public GameObject flashlightLight;
     private HudController _actionTarget;
     public MovementState state;
 
     public enum MovementState
     {
         Gun,
-        miniGun
+        miniGun,
+        flashlight
     }
 
     private void Start()
@@ -61,17 +66,39 @@ public class Throwing : MonoBehaviour
         }
         if(Input.GetKey(keyGun)){
             state = MovementState.Gun;
-            ProjectileAddon.damage = 35;
+            flashlightGO.SetActive(false);
         }
+        
+        if(Input.GetKey(keyFlashlight) && flashlight.flashlight_take){
+            state = MovementState.flashlight;
+            flashlightGO.SetActive(true);
+        }
+        if(Input.GetKeyDown(KeyCode.F) && state == MovementState.flashlight && flashlight.flashlight_take){
+            flashlightBool = !flashlightBool;
+        }
+        if(flashlightBool){
+            flashlightLight.SetActive(true);
+        } else {
+            flashlightLight.SetActive(false);
+        }
+        if(state != MovementState.flashlight){
+            flashlightGO.SetActive(false);
+            flashlightLight.SetActive(false);
+        }
+
         if(Input.GetKey(keyMiniGun)){
             state = MovementState.miniGun;
-            ProjectileAddon.damage = 15;
+            flashlightGO.SetActive(false);
         }
+
         textGun.text = state + " ";
-        if(Input.GetKeyDown(throwKey) && totalThrows <= 0){
+        if(Input.GetKeyDown(throwKey) && totalThrows <= 0 && (state == MovementState.Gun || state == MovementState.miniGun)){
             _actionTarget.message(mission: "Недостаточно патронов");
         }
+
         textAmmo.text = totalThrows + " / " + totalThrowsMax;
+        if(state == MovementState.Gun) ProjectileAddon.damage = 35;
+        if(state == MovementState.miniGun) ProjectileAddon.damage = 15;
     }
 
     private void Throw()

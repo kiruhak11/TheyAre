@@ -11,13 +11,6 @@ public class light : MonoBehaviour
     public GameObject player;
     public bool isEnter = false;
     public float dist;
-
-    void OnMouseDown(){
-        if(dist < 3f){
-            lightOn = !lightOn;
-            lig.Play();
-        }
-    }
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +20,11 @@ public class light : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if(Input.GetKeyDown(KeyCode.E) && dist < 3f && isEnter){
+            lightOn = !lightOn;
+            lig.Play();
+        }
 
         if(isEnter && dist < 3f){
             interaction_image.SetActive(true); 

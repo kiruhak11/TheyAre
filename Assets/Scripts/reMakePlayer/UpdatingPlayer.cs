@@ -43,11 +43,14 @@ public class UpdatingPlayer : MonoBehaviour
     public Text TextTakeStamina;
     public Text nowUpdatePriceStaminaText;
     public Text nowUpdatePriceStaminaTakeText;
+    public GameObject PlayerObj;
+    private HealthManager healthManager;
 
 
     void Start(){
         UpdatePause = false;
         playerCam = player.GetComponent<PlayerCam>();
+        healthManager = PlayerObj.GetComponent<HealthManager>();
     }
 
     public void unpause(){
@@ -109,7 +112,7 @@ public class UpdatingPlayer : MonoBehaviour
         if(UpdatePause && Input.GetKeyDown(pauseButton2) && !Pause.isPaused){
             UpdatePause = !UpdatePause;
         }
-        if(!Pause.isPaused){
+        if(!Pause.isPaused && healthManager.HealthPlayer != 0){
             if(UpdatePause && !Pause.isPaused){
                 UpdatePanel.SetActive(true);
                 hud.SetActive(false);

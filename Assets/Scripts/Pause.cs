@@ -18,10 +18,13 @@ public class Pause : MonoBehaviour{
     PlayerCam playerCam;
     public GameObject Options;
     public GameObject hud;
+    public GameObject PlayerObj;
+    private HealthManager healthManager;
 
     void Start(){
         isPaused = false;
         playerCam = player.GetComponent<PlayerCam>();
+        healthManager = PlayerObj.GetComponent<HealthManager>();
     }
 
     public void unpause(){
@@ -32,7 +35,7 @@ public class Pause : MonoBehaviour{
         if(Input.GetKeyDown(pauseButton) && !UpdatingPlayer.UpdatePause){
             isPaused = !isPaused;
         } else
-        if(!UpdatingPlayer.UpdatePause){
+        if(!UpdatingPlayer.UpdatePause && healthManager.HealthPlayer != 0){
             if(isPaused){
                 pausePanel.SetActive(true);
                 hud.SetActive(false);
