@@ -45,11 +45,11 @@ public class dangureSphere : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision) {
         if (collision.rigidbody && collision.rigidbody.tag == "Player") {
-            healthManager.HealthPlayer -= (Mathf.Round(Random.Range(10.0f, 20.0f)));
+            healthManager.HealthPlayer -= Mathf.Round(Random.Range(10.0f, 20.0f));
             Destroy(sphere);
         }
         if (collision.rigidbody && collision.rigidbody.tag == "bullet") {
-            healthManager.HealthPlayer += (Mathf.Round(Random.Range(1.0f, 5.0f)));
+            healthManager.HealthPlayer += Mathf.Round(Random.Range(1.0f, 5.0f));
             if(healthManager.HealthPlayer >=100){
                 healthManager.HealthPlayer = 100;
             }

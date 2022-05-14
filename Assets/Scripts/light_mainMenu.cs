@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class light_mainMenu : MonoBehaviour
 {
-    public GameObject light;
+    public GameObject thisLight;
     public float timer1;
     public float timer2 = 0.1f;
     public float timer3 = 0.1f;
@@ -18,19 +19,19 @@ public class light_mainMenu : MonoBehaviour
             timer1 = timer1 - 1f * 0.02f;
         }
         if (timer1 <= 0){
-            light.SetActive(false);
+            thisLight.SetActive(false);
             timer2 = timer2 - 1f * 0.02f;
         }
         if (timer2 <= 0){
-            light.SetActive(true);
+            thisLight.SetActive(true);
             timer3 = timer3 - 1f * 0.02f;
         }
         if (timer3 <= 0){
-            light.SetActive(false);
+            thisLight.SetActive(false);
             timer4 = timer4 - 1f * 0.02f;
         }
         if (timer4 <= 0){
-            light.SetActive(true);
+            thisLight.SetActive(true);
             timer2 = 0.1f;
             timer4 = 0.1f;
             timer3 = 0.1f;
