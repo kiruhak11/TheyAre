@@ -8,7 +8,7 @@ namespace inProlog.scripts
 {
     public class starter : MonoBehaviour
     {
-        bool ending = false;
+        public static bool ending = false;
         private bool teleport = false;
         private float endingtimer = 2;
         public bool isNewGame;

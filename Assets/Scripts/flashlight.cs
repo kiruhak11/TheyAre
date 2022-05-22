@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,14 @@ public class flashlight : MonoBehaviour
     public bool isEnter = false;
     public float dist;
     public static bool flashlight_take = false;
+    public GameObject TargetObj;
+    private HudController _actionTarget;
+
+    private void Start()
+    {
+        _actionTarget = TargetObj.GetComponent<HudController>();
+    }
+
     void Update()
     {
 
@@ -17,6 +26,7 @@ public class flashlight : MonoBehaviour
         } 
         if(isEnter && dist < 3f && (Input.GetKeyDown(KeyCode.E))){
             flashlight_take = true;
+            _actionTarget.message(mission: "Вы подняли фонарик");
             Destroy(gameObject); 
         }
 
