@@ -3,6 +3,8 @@
 
 :large_blue_diamond: [TheyAre](https://drive.google.com/uc?export=download&id=1h1ogKGpgsCNfyO3AyB-isjythuaOEFNb)
 
+:large_blue_diamond: [TheyAre: Escape](https://drive.google.com/uc?export=download&id=1ee2WFQmeSNZ1_REJIfbR5CIvpSWyryJc)
+
 
 :white_check_mark: Последний патчлог:
 - Исправлена механника управление персонажем
