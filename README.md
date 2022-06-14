@@ -3,7 +3,7 @@
 
 :large_blue_diamond: [TheyAre](https://drive.google.com/uc?export=download&id=1h1ogKGpgsCNfyO3AyB-isjythuaOEFNb)
 
-<img src="TA_icon.png" width="200" /> [TheyAre: Escape](https://drive.google.com/uc?export=download&id=1ee2WFQmeSNZ1_REJIfbR5CIvpSWyryJc) 0.2a!
+<img src="TA_icon.png" width="20" /> [TheyAre: Escape](https://drive.google.com/uc?export=download&id=1ee2WFQmeSNZ1_REJIfbR5CIvpSWyryJc) 0.2a!
 
 
 :white_check_mark: Последний патчлог:
